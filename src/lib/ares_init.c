@@ -1179,7 +1179,7 @@ static int get_DNS_AdaptersAddresses(char **outptr)
 
   /* Usually this call suceeds with initial buffer size */
   res = (*ares_fpGetAdaptersAddresses) (AF_UNSPEC, AddrFlags, NULL,
-                                        ipaa, &ReqBufsz);
+                                        (IP_ADAPTER_ADDRESSES*)ipaa, &ReqBufsz);
   if ((res != ERROR_BUFFER_OVERFLOW) && (res != ERROR_SUCCESS))
     goto done;
 
@@ -1194,7 +1194,7 @@ static int get_DNS_AdaptersAddresses(char **outptr)
       ipaa = newipaa;
     }
     res = (*ares_fpGetAdaptersAddresses) (AF_UNSPEC, AddrFlags, NULL,
-                                          ipaa, &ReqBufsz);
+                                          (IP_ADAPTER_ADDRESSES*)ipaa, &ReqBufsz);
     if (res == ERROR_SUCCESS)
       break;
   }
